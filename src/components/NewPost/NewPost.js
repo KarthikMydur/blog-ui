@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-import './NewPost.css';
+import classes from  './NewPost.module.css';
+import axios from 'axios';
 
 class NewPost extends Component {
     state = {
@@ -9,9 +9,28 @@ class NewPost extends Component {
         author: 'Max'
     }
 
+    postDataHandler = () => {
+        //console.log('clicked');
+        
+        const data = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        };
+        axios.post('/posts', data)
+            .then(response => {
+                console.log('in then',response);
+                
+            })
+            .catch(err=> {
+                console.log(err);
+                
+            })
+    }
+
     render () {
         return (
-            <div className="NewPost">
+            <div className={classes.NewPost}>
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
@@ -22,7 +41,7 @@ class NewPost extends Component {
                     <option value="Max">Max</option>
                     <option value="Manu">Manu</option>
                 </select>
-                <button>Add Post</button>
+                <button onClick={this.postDataHandler}>Add Post</button>
             </div>
         );
     }
