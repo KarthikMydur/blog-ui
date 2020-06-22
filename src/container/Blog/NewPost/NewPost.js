@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from  './NewPost.module.css';
 import axios from 'axios';
 
+
 class NewPost extends Component {
     state = {
         title: '',
@@ -20,7 +21,7 @@ class NewPost extends Component {
         axios.post('/posts', data)
             .then(response => {
                 console.log('in then',response);
-                
+                this.props.history.push('/')
             })
             .catch(err=> {
                 console.log(err);
@@ -29,6 +30,7 @@ class NewPost extends Component {
     }
 
     render () {
+        
         return (
             <div className={classes.NewPost}>
                 <h1>Add a Post</h1>
